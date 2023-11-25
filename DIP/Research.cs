@@ -2,12 +2,19 @@
 {
     internal class Research
     {
-        public Research(Relationship relationship)
+        IRelationshipBrowser _relationship;
+        string _name;
+        public Research(IRelationshipBrowser relationship, string name)
         {
-            var _relations = relationship.relations;
-            foreach (var r in _relations.Where(r => r.Item1.Name == "A" && r.Item2 == EnumRelationship.Parent))
+            _relationship = relationship;
+            _name = name;
+
+        }
+        public void PrintChildren()
+        {
+            foreach (var p in _relationship.FindAllChildrenOf(_name))
             {
-                Console.WriteLine($"A has a child: {r.Item3.Name}");
+                Console.WriteLine($"{_name} has a child: {p.Name}");
             }
         }
     }
